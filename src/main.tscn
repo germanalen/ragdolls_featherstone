@@ -1,0 +1,230 @@
+[gd_scene load_steps=16 format=3 uid="uid://cq63f188uo8il"]
+
+[ext_resource type="Script" path="res://addons/camera/camera.gd" id="2_elmkw"]
+[ext_resource type="Shader" path="res://src/grid.gdshader" id="3_odlwt"]
+[ext_resource type="Script" path="res://src/joint.gd" id="3_pgyi0"]
+[ext_resource type="Script" path="res://src/articulated_body.gd" id="3_vut5k"]
+[ext_resource type="Script" path="res://src/fps_label.gd" id="6_p64js"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_b14im"]
+radius = 0.2
+height = 0.4
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_ddydv"]
+radius = 0.4
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w3mge"]
+albedo_color = Color(0.493705, 0.402635, 0.476972, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_oagxn"]
+radius = 0.4
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mppvp"]
+albedo_color = Color(0.447933, 0.554388, 0.720643, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_rql3v"]
+size = Vector2(100, 100)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8slh6"]
+render_priority = 0
+shader = ExtResource("3_odlwt")
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2d1qh"]
+
+[sub_resource type="Sky" id="Sky_w0jgk"]
+sky_material = SubResource("ProceduralSkyMaterial_2d1qh")
+
+[sub_resource type="Environment" id="Environment_ju72p"]
+background_mode = 2
+sky = SubResource("Sky_w0jgk")
+
+[node name="main" type="Node3D"]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 14.4466)
+script = ExtResource("2_elmkw")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -0.157865, 5.52272)
+shadow_enabled = true
+
+[node name="articulated_body" type="Node3D" parent="." node_paths=PackedStringArray("ground_mesh")]
+script = ExtResource("3_vut5k")
+ground_mesh = NodePath("../ground")
+
+[node name="body0" type="MeshInstance3D" parent="articulated_body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.55549, 0)
+mesh = SubResource("SphereMesh_b14im")
+
+[node name="joint1" type="Node3D" parent="articulated_body/body0"]
+transform = Transform3D(0.995082, -0.0990593, 0, 0.0990593, 0.995082, 0, 0, 0, 1, 0, 0, 0)
+script = ExtResource("3_pgyi0")
+constrain_position = false
+
+[node name="body" type="MeshInstance3D" parent="articulated_body/body0/joint1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_ddydv")
+skeleton = NodePath("../../../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_w3mge")
+
+[node name="joint6" type="Node3D" parent="articulated_body/body0/joint1/body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+script = ExtResource("3_pgyi0")
+
+[node name="body" type="MeshInstance3D" parent="articulated_body/body0/joint1/body/joint6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_oagxn")
+skeleton = NodePath("../../../../../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_mppvp")
+
+[node name="joint7" type="Node3D" parent="articulated_body/body0/joint1/body/joint6/body"]
+transform = Transform3D(-0.399949, 0.916537, -1.11759e-08, -0.916537, -0.399949, -7.45058e-09, -5.71063e-09, -1.87304e-10, 1, 0, 1, 0)
+script = ExtResource("3_pgyi0")
+joint_S_Rot = [[1, 0, 0]]
+
+[node name="body" type="MeshInstance3D" parent="articulated_body/body0/joint1/body/joint6/body/joint7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_oagxn")
+skeleton = NodePath("../../../../../../../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_mppvp")
+
+[node name="joint8" type="Node3D" parent="articulated_body/body0/joint1/body/joint6/body/joint7/body"]
+transform = Transform3D(0.999011, -0.0303151, -0.0325409, 0, 0.731687, -0.681641, 0.0444738, 0.680966, 0.730963, 0, 1, 0)
+script = ExtResource("3_pgyi0")
+
+[node name="body" type="MeshInstance3D" parent="articulated_body/body0/joint1/body/joint6/body/joint7/body/joint8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_oagxn")
+skeleton = NodePath("../../../../../../../../../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_mppvp")
+
+[node name="joint9" type="Node3D" parent="articulated_body/body0/joint1/body/joint6/body/joint7/body/joint8/body"]
+transform = Transform3D(1, -1.86265e-09, 7.45058e-09, 4.09782e-08, 1, 0, -1.11759e-08, -5.96046e-08, 1, 0, 1, 0)
+script = ExtResource("3_pgyi0")
+
+[node name="body" type="MeshInstance3D" parent="articulated_body/body0/joint1/body/joint6/body/joint7/body/joint8/body/joint9"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_oagxn")
+skeleton = NodePath("../../../../../../../../../../../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_mppvp")
+
+[node name="joint8" type="Node3D" parent="articulated_body/body0/joint1/body/joint6/body"]
+transform = Transform3D(-0.459781, -0.888032, 0, 0.888032, -0.459781, 0, 0, 0, 1, 0, 1, 0)
+script = ExtResource("3_pgyi0")
+joint_S_Rot = [[1, 0, 0]]
+
+[node name="body" type="MeshInstance3D" parent="articulated_body/body0/joint1/body/joint6/body/joint8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_oagxn")
+skeleton = NodePath("../../../../../../../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_mppvp")
+
+[node name="joint8" type="Node3D" parent="articulated_body/body0/joint1/body/joint6/body/joint8/body"]
+transform = Transform3D(0.999011, -0.0303151, -0.0325409, 0, 0.731687, -0.681641, 0.0444738, 0.680966, 0.730963, 0, 1, 0)
+script = ExtResource("3_pgyi0")
+
+[node name="body" type="MeshInstance3D" parent="articulated_body/body0/joint1/body/joint6/body/joint8/body/joint8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_oagxn")
+skeleton = NodePath("../../../../../../../../../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_mppvp")
+
+[node name="joint9" type="Node3D" parent="articulated_body/body0/joint1/body/joint6/body/joint8/body/joint8/body"]
+transform = Transform3D(1, -2.04891e-08, -1.11759e-08, 3.35276e-08, 1, -5.96046e-08, -1.49012e-08, -2.98023e-08, 1, 0, 1, 0)
+script = ExtResource("3_pgyi0")
+
+[node name="body" type="MeshInstance3D" parent="articulated_body/body0/joint1/body/joint6/body/joint8/body/joint8/body/joint9"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_oagxn")
+skeleton = NodePath("../../../../../../../../../../../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_mppvp")
+
+[node name="joint9" type="Node3D" parent="articulated_body/body0/joint1/body"]
+transform = Transform3D(-0.865894, 0.500227, -1.11759e-08, -0.500227, -0.865894, -7.45058e-09, -7.81623e-09, -8.31151e-09, 1, 0, -1, 0)
+script = ExtResource("3_pgyi0")
+joint_S_Rot = [[1, 0, 0]]
+
+[node name="body" type="MeshInstance3D" parent="articulated_body/body0/joint1/body/joint9"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_oagxn")
+skeleton = NodePath("../../../../../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_mppvp")
+
+[node name="joint8" type="Node3D" parent="articulated_body/body0/joint1/body/joint9/body"]
+transform = Transform3D(0.999011, -0.0303151, -0.0325409, 0, 0.731687, -0.681641, 0.0444738, 0.680966, 0.730963, 0, 1, 0)
+script = ExtResource("3_pgyi0")
+
+[node name="body" type="MeshInstance3D" parent="articulated_body/body0/joint1/body/joint9/body/joint8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_oagxn")
+skeleton = NodePath("../../../../../../../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_mppvp")
+
+[node name="joint9" type="Node3D" parent="articulated_body/body0/joint1/body/joint9/body/joint8/body"]
+transform = Transform3D(1, -1.86265e-09, 7.45058e-09, 4.09782e-08, 1, 0, -1.11759e-08, -5.96046e-08, 1, 0, 1, 0)
+script = ExtResource("3_pgyi0")
+
+[node name="body" type="MeshInstance3D" parent="articulated_body/body0/joint1/body/joint9/body/joint8/body/joint9"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_oagxn")
+skeleton = NodePath("../../../../../../../../../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_mppvp")
+
+[node name="joint10" type="Node3D" parent="articulated_body/body0/joint1/body"]
+transform = Transform3D(-0.867618, -0.497231, 0, 0.497231, -0.867618, 0, 0, 0, 1, 0, -1, 0)
+script = ExtResource("3_pgyi0")
+joint_S_Rot = [[1, 0, 0]]
+
+[node name="body" type="MeshInstance3D" parent="articulated_body/body0/joint1/body/joint10"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_oagxn")
+skeleton = NodePath("../../../../../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_mppvp")
+
+[node name="joint8" type="Node3D" parent="articulated_body/body0/joint1/body/joint10/body"]
+transform = Transform3D(0.999011, -0.0303151, -0.0325409, 0, 0.731687, -0.681641, 0.0444738, 0.680966, 0.730963, 0, 1, 0)
+script = ExtResource("3_pgyi0")
+
+[node name="body" type="MeshInstance3D" parent="articulated_body/body0/joint1/body/joint10/body/joint8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_oagxn")
+skeleton = NodePath("../../../../../../../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_mppvp")
+
+[node name="joint9" type="Node3D" parent="articulated_body/body0/joint1/body/joint10/body/joint8/body"]
+transform = Transform3D(1, -2.04891e-08, -1.11759e-08, 3.35276e-08, 1, -5.96046e-08, -1.49012e-08, -2.98023e-08, 1, 0, 1, 0)
+script = ExtResource("3_pgyi0")
+
+[node name="body" type="MeshInstance3D" parent="articulated_body/body0/joint1/body/joint10/body/joint8/body/joint9"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_oagxn")
+skeleton = NodePath("../../../../../../../../../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_mppvp")
+
+[node name="ground" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.48821, 0)
+mesh = SubResource("PlaneMesh_rql3v")
+surface_material_override/0 = SubResource("ShaderMaterial_8slh6")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_ju72p")
+
+[node name="fps_label" type="Label" parent="."]
+offset_left = 45.0
+offset_top = 30.0
+offset_right = 85.0
+offset_bottom = 53.0
+text = "asdf"
+script = ExtResource("6_p64js")
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = -1
+anchor_right = 0.335
+anchor_bottom = 0.127
+offset_left = 41.0
+offset_top = 552.0
+offset_right = -85.92
+offset_bottom = 518.704
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Hold P for running the simulation
+Press Spacebar for stepping"
