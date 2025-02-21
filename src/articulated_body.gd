@@ -99,9 +99,6 @@ func _process(_delta: float) -> void:
 		
 		#for interp_pass in range(1):
 			#for contact in contacts:
-				#if contact.body2 == -1:
-					#continue
-				#
 				#var interp_q_dot = []
 				#interp_q_dot.resize(len(q_dot))
 				#for k in range(len(q_dot)):
@@ -116,7 +113,7 @@ func _process(_delta: float) -> void:
 					#
 					#var fake_interp_resolution_delta = 1 # see the comment for interpenetration_resolution() definition
 					#update_transforms(fake_interp_resolution_delta, interp_q_dot)
-					#aba_results = articulated_body_algorithm(0)
+					##aba_results = articulated_body_algorithm(0)
 		
 		for contact in contacts:
 			collision_response(contact, aba_results)
