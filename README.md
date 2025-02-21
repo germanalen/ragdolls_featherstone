@@ -5,12 +5,18 @@ Ragdoll physics implementation from scratch in GDScript.
 * Forces and impulses are propagated across the ragdoll using Featherstone's algorithm.
 * Impulse-based collision response.
 
-Issues:
+
+
+
+### Issues
 * Interpenetration resolution doesn't work.
 * The implementation is currently very unoptimized, with redundant matrix computations.
 
 
-Project structure
+
+
+### Folder structure
+```
 .
 ├── addons
 ├── src
@@ -23,3 +29,4 @@ Project structure
     ├── camera              # freelook camera addon
     ├── debug_draw_3d
     └── largelinearalgebra  # NxN matrices and utility functions
+```
