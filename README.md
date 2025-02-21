@@ -12,7 +12,7 @@ Ragdoll physics implementation from scratch in GDScript.
 
 ### Issues
 * Interpenetration resolution doesn't work.
-* The implementation is currently very unoptimized, with redundant matrix computations.
+* The implementation is currently very unoptimized, with redundant matrix computations and in GDScript instead of C++.
 
 
 
