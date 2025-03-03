@@ -30,13 +30,16 @@ Ragdoll physics implementation from scratch in GDScript.
 .
 ├── addons
 ├── src
-│   ├── articulated_body.gd # ragdoll physics implementation
+│   ├── articulated_body.gd     # old ragdoll physics implementation in gdscript. Commented out and requires the largelinearalgebra addon
 │   ├── fps_label.gd
 │   ├── grid.gdshader
 │   ├── joint.gd
-│   └── main.tscn           # main scene
+│   └── main.tscn               # main scene
 └── addons
-    ├── camera              # freelook camera addon
+    ├── camera                  # freelook camera addon
     ├── debug_draw_3d
-    └── largelinearalgebra  # NxN matrices and utility functions
+    └── ragdoll_physics
+        ├── ragdoll_physics.h
+        ├── ragdoll_physics.cpp # ragdoll physics implementation
+        └── Eigen               # the Eigen library
 ```
