@@ -11,4 +11,3 @@ void fragment() {
 	float grid = float(gradient_grid.r > thickness && gradient_grid.g > thickness);
 	ALBEDO = mix(vec3(0.3), vec3(0.6,0.59,0.58), grid);
 }
-

@@ -20,18 +20,21 @@ func get_joint_S():
 	var col_count = rot_dim + lin_dim
 	
 	var joint_S_ = []
-	joint_S_.resize(6*col_count)
-	joint_S_.fill(0)
+	joint_S_.resize(6)
+	joint_S_.fill([])
+	for row in range(6):
+		joint_S_[row] = [0,0,0, 0,0,0]
+		joint_S_[row].resize(col_count)
 	
 	for row in range(3):
 		for col in range(rot_dim):
-			joint_S_[row * col_count + col] = joint_S_Rot[col][row]
+			joint_S_[row][col] = joint_S_Rot[col][row]
 	
 	if not constrain_position:
 		for i in range(3):
 			var row = 3 + i
 			var col = rot_dim + i
-			joint_S_[row * col_count + col] = 1
+			joint_S_[row][col] = 1
 	
-	return DenseMatrix.from_packed_array(joint_S_, 6, col_count)
+	return joint_S_
 	
