@@ -1,0 +1,5 @@
+
+# vscode lldb debugger can't peek inside stl containers built with msvc
+# but mingw takes ages to link due to some bug
+
+scons platform=windows target=template_debug debug_symbols=yes optimize=debug
