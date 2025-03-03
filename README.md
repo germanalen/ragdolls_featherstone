@@ -16,8 +16,8 @@ Ragdoll physics implementation from scratch in GDScript.
 
 
 ### Todo
-* Precompute frequently used matrices
-* Rewrite the implementation in C++
+* ~~Precompute frequently used matrices~~
+* ~~Rewrite the implementation in C++~~
 * Experiment with interpenetration resolution code
     * Currently it's calculating the velocity required to move the bodies apart by "depth of collision", fictitiously applying the corresponding impulse, and then applying the resulting velocities with a fake delta time of 1 sec.
     * Try treating the whole ragdoll as a single rigid body for the purposes of interpenetration resolution.
